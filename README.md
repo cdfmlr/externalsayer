@@ -1,0 +1,5 @@
+# mac sayer for mvtuber
+
+`mac_sayer` is a muvtuber SayService (defined in [muvtuber-proto/muvtuber/sayer](https://github.com/cdfmlr/muvtuber-proto/tree/main/muvtuber/sayer)) running on macOS.
+It calls SAY(1) to convert text to audible speech via apple's Speech Synthesis manager.
+
