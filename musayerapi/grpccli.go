@@ -14,8 +14,8 @@ import (
 
 	"google.golang.org/grpc"
 
-	"muvtuber/mac_sayer/musayerapi/pool"
-	sayerv1 "muvtuber/mac_sayer/musayerapi/proto"
+	"musayer/macsayer/musayerapi/pool"
+	sayerv1 "musayer/macsayer/musayerapi/proto"
 )
 
 var MaxConsecutiveFailures = 3

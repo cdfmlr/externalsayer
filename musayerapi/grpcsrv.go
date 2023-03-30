@@ -6,13 +6,17 @@ package musayerapi
 import (
 	"context"
 	"net"
+	"os"
+	"reflect"
+	"strings"
 
+	"golang.org/x/exp/slog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 
-	sayerv1 "muvtuber/mac_sayer/musayerapi/proto"
+	sayerv1 "musayer/macsayer/musayerapi/proto"
 )
 
 // sayerServiceServerImpl implements the SayerServiceServer interface
@@ -32,9 +36,41 @@ func (s *sayerServiceServerImpl) Say(
 	ctx context.Context, in *sayerv1.SayRequest) (
 	*sayerv1.SayResponse, error) {
 
-	if in.Role == "" {
-		return nil, status.Error(codes.InvalidArgument, "role is required")
+	resp, err := s.say(ctx, in)
+	if err != nil {
+		slog.Warn("sayerServiceServer Say failed.", "err", err)
+		return nil, err
 	}
+	slog.Info("sayerServiceServer Say succeeded.", "text", ellipsis(in.Text, 10))
+	return resp, nil
+}
+
+// ellipsis long s -> "front...end"
+func ellipsis(s string, n int) string {
+	r := []rune(s)
+
+	if len(r) <= n {
+		return s
+	}
+
+	n -= 3
+	h := n / 2
+
+	var sb strings.Builder
+	sb.WriteString(string(r[:h]))
+	sb.WriteString("...")
+	sb.WriteString(string(r[len(r)-h:]))
+
+	return sb.String()
+}
+
+func (s *sayerServiceServerImpl) say(
+	ctx context.Context, in *sayerv1.SayRequest) (
+	*sayerv1.SayResponse, error) {
+
+	// if in.Role == "" {
+	// 	return nil, status.Error(codes.InvalidArgument, "role is required")
+	// }
 	if in.Text == "" {
 		return nil, status.Error(codes.InvalidArgument, "text is required")
 	}
@@ -69,5 +105,9 @@ func ServeGrpc(ctx context.Context, sayer Sayer, addr string) error {
 		lis.Close()
 	}()
 
+	slog.Info("gRPC API server started.",
+		"addr", addr,
+		"sayer", reflect.TypeOf(sayer).String(),
+		"pid", os.Getpid())
 	return server.Serve(lis)
 }
