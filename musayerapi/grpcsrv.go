@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 
-	sayerv1 "musayer/macsayer/musayerapi/proto"
+	sayerv1 "musayer/externalsayer/musayerapi/proto"
 )
 
 // sayerServiceServerImpl implements the SayerServiceServer interface

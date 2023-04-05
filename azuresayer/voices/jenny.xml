@@ -1,0 +1,5 @@
+<speak version="1.0" xml:lang="zh-CN" xmlns:mstts="http://www.w3.org/2001/mstts">
+    <voice name="en-US-JennyMultilingualNeural">
+        {{.}}
+    </voice>
+</speak>
