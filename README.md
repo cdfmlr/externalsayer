@@ -1,5 +1,10 @@
-# mac sayer for mvtuber
+# external sayer for mvtuber
 
-`macsayer` is a muvtuber SayerService (defined in [muvtuber-proto/muvtuber/sayer](https://github.com/cdfmlr/muvtuber-proto/tree/main/muvtuber/sayer)) running on macOS.
-It calls SAY(1) to convert text to audible speech via apple's Speech Synthesis manager.
+`externalsayer` is a muvtuber SayerService (defined in [muvtuber-proto/muvtuber/sayer](https://github.com/cdfmlr/muvtuber-proto/tree/main/muvtuber/sayer)) running on any os.
+It calls public APIs to convert text to audible speech.
+
+Available APIs:
+
+- [x] [Azure: TTS](https://azure.microsoft.com/zh-cn/products/cognitive-services/text-to-speech/)
+- [ ] ...
 
