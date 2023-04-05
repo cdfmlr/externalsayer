@@ -6,4 +6,4 @@ AzureSayer:
   FormatMicrosoft: "audio-16khz-32kbitrate-mono-mp3"
   FormatMimeSubtype: "mp3"
   Roles:
-    "jenny": '<speak version="1.0" xml:lang="zh-CN"><voice name="en-US-JennyMultilingualNeural">%s</voice></speak>'
+    "jenny": '<speak version="1.0" xml:lang="zh-CN"><voice name="en-US-JennyMultilingualNeural">{{.}}</voice></speak>'
