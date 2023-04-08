@@ -38,10 +38,10 @@ func (s *sayerServiceServerImpl) Say(
 
 	resp, err := s.say(ctx, in)
 	if err != nil {
-		slog.Warn("sayerServiceServer Say failed.", "err", err)
+		slog.Warn("sayerServiceServer Say failed.", "err", err, "text", ellipsis(in.Text, 15))
 		return nil, err
 	}
-	slog.Info("sayerServiceServer Say succeeded.", "text", ellipsis(in.Text, 10))
+	slog.Info("sayerServiceServer Say succeeded.", "text", ellipsis(in.Text, 15))
 	return resp, nil
 }
 

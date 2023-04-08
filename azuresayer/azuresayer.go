@@ -83,7 +83,7 @@ func (s *AzureSayer) say(voiceTemplate string, text string, format string) (audi
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("ssml: \n\t%s\n", body.String())
+	// fmt.Printf("ssml: \n\t%s\n", body.String())
 
 	req, err := http.NewRequest("POST", url, bytes.NewReader(body.Bytes()))
 	if err != nil {
