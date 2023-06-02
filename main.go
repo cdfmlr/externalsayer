@@ -11,12 +11,19 @@ import (
 	"syscall"
 )
 
-var configFile = flag.String("c", "", "specify config file (default: check config.yaml in . or /etc/extremesayer or $HOME/.extremesayer)")
+var (
+	configFile = flag.String("c", "", "specify config file (default: check config.yaml in . or /etc/extremesayer or $HOME/.extremesayer)")
+	dryRun     = flag.Bool("dryrun", false, "print the config and exit")
+)
 
 func main() {
 	flag.Parse()
 
 	initConfig(*configFile)
+
+	if *dryRun {
+		os.Exit(0)
+	}
 
 	gracefulShutdown := make(chan os.Signal, 1)
 	signal.Notify(gracefulShutdown, os.Interrupt, syscall.SIGTERM)

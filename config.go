@@ -1,12 +1,16 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"log"
 
+	"github.com/cdfmlr/ellipsis"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slog"
+	"gopkg.in/yaml.v3"
 )
 
 // Config is the configuration for the application.
@@ -17,6 +21,34 @@ type Config struct {
 	EnabledSayer string
 	// AzureSayer is the configuration for the AzureSayer.
 	AzureSayer AzureSayerConfig
+}
+
+func (c *Config) Write(dst io.Writer) error {
+	return yaml.NewEncoder(dst).Encode(&c)
+}
+
+// DesensitizedCopy desensitize the config.
+// Returns a pointer to the desensitized config copy.
+//
+// If it's failed to make it, it panics.
+//
+// Avoid keys being printed to the log.
+func (c *Config) DesensitizedCopy() *Config {
+	var cCopy Config
+
+	// deep copy
+	buf := bytes.NewBuffer(nil)
+	if err := yaml.NewEncoder(buf).Encode(&c); err != nil {
+		panic(err)
+	}
+	if err := yaml.NewDecoder(buf).Decode(&cCopy); err != nil {
+		panic(err)
+	}
+
+	// api key
+	cCopy.AzureSayer.SpeechKey = ellipsis.Centering(cCopy.AzureSayer.SpeechKey, 9)
+
+	return &cCopy
 }
 
 // AzureSayerConfig is the configuration for the AzureSayer.
@@ -47,6 +79,9 @@ func initConfig(paths ...string) {
 	if err := reloadConfig(); err != nil {
 		log.Fatal("loading config failed: ", err)
 	}
+
+	log.Println("Config loaded:")
+	config.DesensitizedCopy().Write(log.Writer())
 
 	configChanged = watchConfig()
 }
