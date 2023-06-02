@@ -147,6 +147,8 @@ github.com/murchinroom/sayerapigo v0.0.0-20230526082243-ff8cadafd4c3 h1:NAGdu0Fy
 github.com/murchinroom/sayerapigo v0.0.0-20230526082243-ff8cadafd4c3/go.mod h1:bxkM+VL2aIkf2tNLFHWP336a34h4fLwlZ+qlNYZOoYM=
 github.com/murchinroom/sayerapigo v0.0.1 h1:RX8bQn0b8xPTH+hVbXFQzh1JTmxRS/D3A9HSgPFQXao=
 github.com/murchinroom/sayerapigo v0.0.1/go.mod h1:SC0i3xE0y6CM3uhEv26Rnfraf//rQgleSk5Qr6Gu9I0=
+github.com/murchinroom/sayerapigo v0.0.2 h1:MQXgybIkJp9XlQEt+dhTqCdC4Uni5voD0t6cFJClAqs=
+github.com/murchinroom/sayerapigo v0.0.2/go.mod h1:SC0i3xE0y6CM3uhEv26Rnfraf//rQgleSk5Qr6Gu9I0=
 github.com/pelletier/go-toml/v2 v2.0.6 h1:nrzqCb7j9cDFj2coyLNLaZuJTLjWjlaz6nvTvIwycIU=
 github.com/pelletier/go-toml/v2 v2.0.6/go.mod h1:eumQOmlWiOPt5WriQQqoM5y18pDHwha2N+QD+EUNTek=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
