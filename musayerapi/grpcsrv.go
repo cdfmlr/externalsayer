@@ -8,13 +8,13 @@ import (
 	"net"
 	"os"
 	"reflect"
-	"strings"
 
 	"golang.org/x/exp/slog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
+	"github.com/cdfmlr/ellipsis"
 
 	sayerv1 "musayer/externalsayer/musayerapi/proto"
 )
@@ -38,30 +38,11 @@ func (s *sayerServiceServerImpl) Say(
 
 	resp, err := s.say(ctx, in)
 	if err != nil {
-		slog.Warn("sayerServiceServer Say failed.", "err", err, "text", ellipsis(in.Text, 15))
+		slog.Warn("sayerServiceServer Say failed.", "err", err, "text", ellipsis.Centering(in.Text, 15))
 		return nil, err
 	}
-	slog.Info("sayerServiceServer Say succeeded.", "text", ellipsis(in.Text, 15))
+	slog.Info("sayerServiceServer Say succeeded.", "text", ellipsis.Centering(in.Text, 15))
 	return resp, nil
-}
-
-// ellipsis long s -> "front...end"
-func ellipsis(s string, n int) string {
-	r := []rune(s)
-
-	if len(r) <= n {
-		return s
-	}
-
-	n -= 3
-	h := n / 2
-
-	var sb strings.Builder
-	sb.WriteString(string(r[:h]))
-	sb.WriteString("...")
-	sb.WriteString(string(r[len(r)-h:]))
-
-	return sb.String()
 }
 
 func (s *sayerServiceServerImpl) say(
