@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"flag"
+	musayerapi "github.com/murchinroom/sayerapigo"
 	"log"
 	"musayer/externalsayer/azuresayer"
-	"musayer/externalsayer/musayerapi"
 	"os"
 	"os/signal"
 	"syscall"
